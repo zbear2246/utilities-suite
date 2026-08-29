@@ -42,6 +42,6 @@ public class PowerGrid {
             gridInfo.put(graph, grid);
         }
 
-        Log.info(gridInfo);
+        Log.info(gridInfo.toString());
     }
 }
