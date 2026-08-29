@@ -1,7 +1,6 @@
 package utilities.features.powerGrid;
 
 import mindustry.world.blocks.power.PowerGraph;
-import utilities.features.powerGrid.GridInfo;
 import mindustry.game.Team;
 import mindustry.gen.Building;
 import mindustry.gen.Groups;

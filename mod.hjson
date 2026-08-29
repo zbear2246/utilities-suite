@@ -1,7 +1,7 @@
 displayName: "Utilities Suite"
 name: "utilities-suite"
 author: "Zbear2246"
-main: "src.utilities.UtilitiesSuite.java"
+main: "utilities.UtilitiesSuite"
 description: "A Mindustry Java mod template."
 version: 1.0
 minGameVersion: 158
