@@ -27,7 +27,7 @@ public class PowerGrid {
 
             powerGraphs.add(building.power.graph);
         }
-        Log.info("found" + powerGraphs.size() + " power graphs: " + powerGraphs);
+        Log.info("found " + powerGraphs.size() + " power graphs: " + powerGraphs);
     }
 
     public void logPowerGridInfo(){
@@ -41,5 +41,7 @@ public class PowerGrid {
             );
             gridInfo.put(graph, grid);
         }
+
+        Log.info(gridInfo);
     }
 }
