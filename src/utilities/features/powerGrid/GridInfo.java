@@ -34,5 +34,20 @@ public class GridInfo {
     public float getNetProduction() {
         return netProduction;
     }
+    @Override
+    public String toString(){
+        String result = "";
+
+        result = "{" +
+            "\"Production\": " + getProduction() + "," +
+            "\"Consumption\": " + getConsumption() + "," + 
+            "\"Net Production\": " + getNetProduction() + "," +
+            "\"Power Stored\": " + getStoredPower() + "," +
+            "\"Capacity\": " + getCapacity() +
+        "}";
+
+
+        return result;
+    }
 
 }

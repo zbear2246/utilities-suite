@@ -16,13 +16,11 @@ public class UtilitiesSuite extends Mod{
         Events.run(Trigger.update, () -> {
             elapsedTime += Time.delta;
 
-            if(elapsedTime >= 1.0f){
+            if(elapsedTime >= 5.0f){
                 powerGrid.findPowerGrids();
                 powerGrid.logPowerGridInfo();
+                elapsedTime = 0f;
             }
-
-
-            elapsedTime = 0f;
         });
     }
     
