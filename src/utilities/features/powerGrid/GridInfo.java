@@ -38,13 +38,13 @@ public class GridInfo {
     public String toString(){
         String result = "";
 
-        result = "{" +
-            "\"Production\": " + getProduction() + "," +
-            "\"Consumption\": " + getConsumption() + "," + 
-            "\"Net Production\": " + getNetProduction() + "," +
-            "\"Power Stored\": " + getStoredPower() + "," +
+        result = "{\n" +
+            "\"Production\": " + getProduction() + ",\n" +
+            "\"Consumption\": " + getConsumption() + ",\n" + 
+            "\"Net Production\": " + getNetProduction() + ",\n" +
+            "\"Power Stored\": " + getStoredPower() + ",\n" +
             "\"Capacity\": " + getCapacity() +
-        "}";
+        "\n}";
 
 
         return result;

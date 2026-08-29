@@ -42,7 +42,7 @@ public class PowerGrid {
             gridInfo.put(graph, grid);
         }
 
-        Log.info(gridInfo.toString());
+        Log.info(gridInfo.toString() + "\n");
     }
 
     public void clearInfo(){
