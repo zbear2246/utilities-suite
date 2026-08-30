@@ -41,7 +41,6 @@ public class PowerGrid implements Feature {
     }
 
     public void findPowerGrids(){
-        powerGraphs.clear();
         Team myTeam = Vars.player.team();
         
 
@@ -70,7 +69,8 @@ public class PowerGrid implements Feature {
     }
 
     public void update(){
-
+        findPowerGrids();
+        
         for (var entry : gridInfo.entrySet()){
             PowerGraph graph = entry.getKey();
             GridInfo grid = entry.getValue();
