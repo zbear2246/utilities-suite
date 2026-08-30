@@ -34,6 +34,16 @@ public class GridInfo {
     public float getNetProduction() {
         return netProduction;
     }
+
+    public void update(float production, float consumption, float storedPower, float capacity, float netProduction){
+        this.production = production;
+        this.consumption = consumption;
+        this.storedPower = storedPower;
+        this.capacity = capacity;
+        this.netProduction = netProduction;
+    }
+
+
     @Override
     public String toString(){
         String result = "";
@@ -44,7 +54,7 @@ public class GridInfo {
             "\"Net Production\": " + getNetProduction() + ",\n" +
             "\"Power Stored\": " + getStoredPower() + ",\n" +
             "\"Capacity\": " + getCapacity() +
-        "\n}";
+        "\n}\n";
 
 
         return result;

@@ -1,23 +1,47 @@
 package utilities.features.powerGrid;
 
+import utilities.features.Feature;
+
 import mindustry.world.blocks.power.PowerGraph;
 import mindustry.game.Team;
 import mindustry.gen.Building;
 import mindustry.gen.Groups;
+import mindustry.Vars;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import arc.struct.Seq;
 import arc.util.Log;
-import mindustry.Vars;
 
-public class PowerGrid {
-    Set<PowerGraph> powerGraphs = new HashSet<>();
-    Map<PowerGraph, GridInfo> gridInfo = new HashMap<>();
+
+public class PowerGrid implements Feature {
+    private Set<PowerGraph> powerGraphs;
+    private Map<PowerGraph, GridInfo> gridInfo;
+    private Seq<GridInfo> displayOrder;
+
+    public void init(){
+        powerGraphs = new HashSet<PowerGraph>();
+        gridInfo = new HashMap<PowerGraph, GridInfo>();
+        displayOrder = new Seq<GridInfo>();
+    }
+
+    public Set<PowerGraph> getPowerGraphs(){
+        return powerGraphs;
+    }
+
+    public Map<PowerGraph, GridInfo> getGridInfo(){
+        return gridInfo;
+    }
+
+    public Seq<GridInfo> getDisplayOrder(){
+        return displayOrder;
+    }
 
     public void findPowerGrids(){
+        powerGraphs.clear();
         Team myTeam = Vars.player.team();
         
 
@@ -33,20 +57,33 @@ public class PowerGrid {
     public void logPowerGridInfo(){
         for (PowerGraph graph : powerGraphs){
             GridInfo grid = new GridInfo(
-                graph.getLastScaledPowerIn() * 60,
-                graph.getLastScaledPowerOut() * 60,
-                graph.getBatteryStored(),
-                graph.getTotalBatteryCapacity(),
+                graph.getLastScaledPowerIn() * 60, 
+                graph.getLastScaledPowerOut() * 60, 
+                graph.getBatteryStored(), 
+                graph.getTotalBatteryCapacity(), 
                 graph.getPowerBalance() * 60
             );
-            gridInfo.put(graph, grid);
-        }
 
-        Log.info(gridInfo.toString() + "\n");
+            gridInfo.put(graph, grid);
+            Log.info(grid.toString());
+        }
     }
 
-    public void clearInfo(){
-        gridInfo.clear();
-        powerGraphs.clear();
+    public void update(){
+
+        for (var entry : gridInfo.entrySet()){
+            PowerGraph graph = entry.getKey();
+            GridInfo grid = entry.getValue();
+
+
+            grid.update(
+                graph.getLastScaledPowerIn() * 60, 
+                graph.getLastScaledPowerOut() * 60, 
+                graph.getBatteryStored(), 
+                graph.getTotalBatteryCapacity(), 
+                graph.getPowerBalance() * 60
+            );
+            Log.info(grid.toString());
+        }
     }
 }
