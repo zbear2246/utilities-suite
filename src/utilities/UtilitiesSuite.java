@@ -19,6 +19,7 @@ public class UtilitiesSuite extends Mod{
             if(elapsedTime >= 5.0f){
                 powerGrid.findPowerGrids();
                 powerGrid.logPowerGridInfo();
+                powerGrid.clearInfo();
                 elapsedTime = 0f;
             }
         });

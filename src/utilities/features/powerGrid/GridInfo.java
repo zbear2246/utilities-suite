@@ -38,7 +38,7 @@ public class GridInfo {
     public String toString(){
         String result = "";
 
-        result = "{\n" +
+        result = "\n{\n" +
             "\"Production\": " + getProduction() + ",\n" +
             "\"Consumption\": " + getConsumption() + ",\n" + 
             "\"Net Production\": " + getNetProduction() + ",\n" +

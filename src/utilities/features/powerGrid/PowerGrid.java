@@ -33,11 +33,11 @@ public class PowerGrid {
     public void logPowerGridInfo(){
         for (PowerGraph graph : powerGraphs){
             GridInfo grid = new GridInfo(
-                graph.getPowerProduced(),
-                graph.getPowerNeeded(),
+                graph.getLastScaledPowerIn(),
+                graph.getLastScaledPowerOut(),
+                graph.getPowerBalance(),
                 graph.getBatteryStored(),
-                graph.getBatteryCapacity(),
-                graph.getPowerBalance()
+                graph.getTotalBatteryCapacity()
             );
             gridInfo.put(graph, grid);
         }
