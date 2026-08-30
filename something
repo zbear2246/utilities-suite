@@ -5,8 +5,18 @@
 
 git add .
 
+wait
+
 read -p "Commit message: " message
 
 git commit -m "$message"
 
+wait
+
 git push
+
+wait
+
+sleep 5
+
+cls
