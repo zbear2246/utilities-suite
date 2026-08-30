@@ -7,7 +7,7 @@ public class GridInfo {
     private float storedPower;
     private float capacity;
 
-    public GridInfo(float production, float consumption, float storedPower, float capacity, float netProduction){
+    public GridInfo(float production, float consumption, float storedPower, float capacity, float netProduction) {
         this.production = production;
         this.consumption = consumption;
         this.storedPower = storedPower;
@@ -15,15 +15,15 @@ public class GridInfo {
         this.netProduction = netProduction;
     }
 
-    public float getProduction(){
+    public float getProduction() {
         return production;
     }
 
-    public float getConsumption(){
+    public float getConsumption() {
         return consumption;
     }
-    
-    public float getStoredPower(){
+
+    public float getStoredPower() {
         return storedPower;
     }
 
@@ -35,7 +35,7 @@ public class GridInfo {
         return netProduction;
     }
 
-    public void update(float production, float consumption, float storedPower, float capacity, float netProduction){
+    public void update(float production, float consumption, float storedPower, float capacity, float netProduction) {
         this.production = production;
         this.consumption = consumption;
         this.storedPower = storedPower;
@@ -43,19 +43,17 @@ public class GridInfo {
         this.netProduction = netProduction;
     }
 
-
     @Override
-    public String toString(){
+    public String toString() {
         String result = "";
 
         result = "\n{\n" +
-            "\"Production\": " + getProduction() + ",\n" +
-            "\"Consumption\": " + getConsumption() + ",\n" + 
-            "\"Net Production\": " + getNetProduction() + ",\n" +
-            "\"Power Stored\": " + getStoredPower() + ",\n" +
-            "\"Capacity\": " + getCapacity() +
-        "\n}\n";
-
+                "\"Production\": " + getProduction() + ",\n" +
+                "\"Consumption\": " + getConsumption() + ",\n" +
+                "\"Net Production\": " + getNetProduction() + ",\n" +
+                "\"Power Stored\": " + getStoredPower() + ",\n" +
+                "\"Capacity\": " + getCapacity() +
+                "\n}\n";
 
         return result;
     }
