@@ -35,9 +35,9 @@ public class PowerGrid {
             GridInfo grid = new GridInfo(
                 graph.getLastScaledPowerIn(),
                 graph.getLastScaledPowerOut(),
-                graph.getPowerBalance(),
                 graph.getBatteryStored(),
-                graph.getTotalBatteryCapacity()
+                graph.getTotalBatteryCapacity(),
+                graph.getPowerBalance()
             );
             gridInfo.put(graph, grid);
         }

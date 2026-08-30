@@ -16,7 +16,7 @@ public class UtilitiesSuite extends Mod{
         Events.run(Trigger.update, () -> {
             elapsedTime += Time.delta;
 
-            if(elapsedTime >= 5.0f){
+            if(elapsedTime >= 60.0f){
                 powerGrid.findPowerGrids();
                 powerGrid.logPowerGridInfo();
                 powerGrid.clearInfo();
