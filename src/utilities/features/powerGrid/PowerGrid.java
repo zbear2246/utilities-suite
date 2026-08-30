@@ -41,6 +41,7 @@ public class PowerGrid implements Feature {
     }
 
     public void findPowerGrids(){
+        powerGraphs.clear();
         Team myTeam = Vars.player.team();
         
 
@@ -52,6 +53,7 @@ public class PowerGrid implements Feature {
         }
         Log.info("found " + powerGraphs.size());
     }
+
 
     public void logPowerGridInfo(){
         for (PowerGraph graph : powerGraphs){
@@ -70,11 +72,13 @@ public class PowerGrid implements Feature {
 
     public void update(){
         findPowerGrids();
-        
+
+        gridInfo.entrySet().removeIf(entry -> !powerGraphs.contains(entry.getKey()));
+
+
         for (var entry : gridInfo.entrySet()){
             PowerGraph graph = entry.getKey();
             GridInfo grid = entry.getValue();
-
 
             grid.update(
                 graph.getLastScaledPowerIn() * 60, 
