@@ -41,10 +41,10 @@ public class UtilitiesSuite extends Mod {
         powerGrid = new PowerGrid();
         powerGridUi = new PowerGridUi();
 
-        //autoDrill = new AutoDrill();
+        // autoDrill = new AutoDrill();
         autoDrillUi = new AutoDrillUi();
 
-        //smartUpgrade = new SmartUpgrade();
+        // smartUpgrade = new SmartUpgrade();
         smartUpgradeui = new SmartUpgradeUi();
 
         uiToggleButtons = new Buttons(powerGridUi, autoDrillUi, smartUpgradeui);
@@ -53,7 +53,7 @@ public class UtilitiesSuite extends Mod {
     private void registerClientLoadedListener() {
         Events.on(EventType.ClientLoadEvent.class, event -> {
             uiToggleButtons.init();
-            Vars.ui.hudGroup.addChild(uiToggleButtons);
+            uiToggleButtons.visible = true;
         });
     }
 
@@ -61,6 +61,7 @@ public class UtilitiesSuite extends Mod {
         Events.on(EventType.WorldLoadEvent.class, event -> {
             powerGrid.init();
             powerGrid.findPowerGrids();
+            Vars.ui.hudGroup.addChild(uiToggleButtons);
             worldLoaded = true;
         });
     }
