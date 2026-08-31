@@ -5,8 +5,17 @@ import arc.scene.ui.layout.Table;
 public class PowerGridUi extends Table{
 
     public PowerGridUi(){
-        setFillParent(true);
+
+    }
+
+    public void createGraph(){
         top();
-        add("power graph");
+        setFillParent(true);
+        visible = false;
+        add("Power Grid Graph");
+    }
+
+    public void toggle(){
+        visible = !visible;
     }
 }

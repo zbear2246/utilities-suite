@@ -1,20 +1,24 @@
-#!/usr/bin/bash
+#!/bin/bash
 
-./gradlew jar
+BLUE='\e[1;34m'
+GREEN='\e[1;32m'
+RESET='\e[0m'
 
+echo -e "${BLUE}=== Building project ===${RESET}"
+./gradlew jar -q || exit 1
 
+echo -e "${BLUE}=== Committing changes ===${RESET}"
 git add .
-
-wait
-
+read -p "Commit summary: " summary
 read -p "Commit message: " message
 
-git commit -m "$message"
+if [ -z "$message" ]; then
+    git commit -m "$summary"
+else
+    git commit -m "$summary" -m "$message"
+fi
 
-wait
-
+echo -e "${BLUE}=== Pushing ===${RESET}"
 git push
 
-wait
-
-clear
+echo -e "${GREEN}Done!${RESET}"
