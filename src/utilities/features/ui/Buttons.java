@@ -21,9 +21,7 @@ public class Buttons extends Table {
         featureButtons = new Table();
 
         top().right().setFillParent(true);
-        
         featureButtons.visible = false;
-
         add(featureButtons).row();
 
         powerGridButton();
@@ -38,6 +36,8 @@ public class Buttons extends Table {
         if (powerGridUi == null)
             return;
 
+        powerGridUi.init();
+
         featureButtons.button("Power Grid", () -> powerGridUi.toggle()).size(50f, 50f);
     }
 
@@ -45,12 +45,16 @@ public class Buttons extends Table {
         if (autoDrillUi == null)
             return;
 
+        // autoDrillui.init();
+
         featureButtons.button("Auto Drill", () -> autoDrillUi.toggle()).size(50f, 50f);
     }
 
     public void smartUpgradeButton() {
         if (smartUpgradeUi == null)
             return;
+
+        // smartUpgradeButton.init();
 
         featureButtons.button("Smart Upgrade", () -> smartUpgradeUi.toggle()).size(50f, 50f);
     }
