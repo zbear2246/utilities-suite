@@ -2,7 +2,7 @@ package utilities;
 
 import arc.Events;
 import arc.util.Time;
-
+import mindustry.Vars;
 import mindustry.core.GameState;
 import mindustry.game.EventType;
 import mindustry.game.EventType.Trigger;
@@ -47,7 +47,7 @@ public class UtilitiesSuite extends Mod {
         smartUpgradeui = new SmartUpgradeUi();
 
         uiToggleButtons = new Buttons(powerGridUi, autoDrillUi, smartUpgradeui);
-
+        Vars.ui.hudGroup.addChild(uiToggleButtons);
     }
 
     private void registerWorldLoadedListener() {
@@ -63,6 +63,7 @@ public class UtilitiesSuite extends Mod {
             if (event.to != GameState.State.menu)
                 return;
             worldLoaded = false;
+            Vars.ui.hudGroup.removeChild(uiToggleButtons);
         });
     }
 
