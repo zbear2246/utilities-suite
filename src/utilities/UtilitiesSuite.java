@@ -31,6 +31,7 @@ public class UtilitiesSuite extends Mod {
 
     public UtilitiesSuite() {
         initialize();
+        registerClientLoadedListener();
         registerWorldLoadedListener();
         registerStateChangeListener();
         runEveryTick();
@@ -47,8 +48,13 @@ public class UtilitiesSuite extends Mod {
         smartUpgradeui = new SmartUpgradeUi();
 
         uiToggleButtons = new Buttons(powerGridUi, autoDrillUi, smartUpgradeui);
-        uiToggleButtons.init();
-        Vars.ui.hudGroup.addChild(uiToggleButtons);
+    }
+
+    private void registerClientLoadedListener() {
+        Events.on(EventType.ClientLoadEvent.class, event -> {
+            uiToggleButtons.init();
+            Vars.ui.hudGroup.addChild(uiToggleButtons);
+        });
     }
 
     private void registerWorldLoadedListener() {
