@@ -115,8 +115,19 @@ public class PowerGrid implements Feature {
         return new GridData(production, consumption, netProduction, storedBatteryPower, totalBatteryCapacity);
     }
 
-    private record GridData(int production, int consumption, int netProduction, int storedBatteryPower,
-            int totalBatteryCapacity) {
-    }
+    private static class GridData {
+        final int production;
+        final int consumption;
+        final int netProduction;
+        final int storedBatteryPower;
+        final int totalBatteryCapacity;
 
+        GridData(int production, int consumption, int netProduction, int storedBatteryPower, int totalBatteryCapacity) {
+            this.production = production;
+            this.consumption = consumption;
+            this.netProduction = netProduction;
+            this.storedBatteryPower = storedBatteryPower;
+            this.totalBatteryCapacity = totalBatteryCapacity;
+        }
+    }
 }
