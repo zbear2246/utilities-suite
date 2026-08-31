@@ -47,6 +47,7 @@ public class UtilitiesSuite extends Mod {
         smartUpgradeui = new SmartUpgradeUi();
 
         uiToggleButtons = new Buttons(powerGridUi, autoDrillUi, smartUpgradeui);
+        uiToggleButtons.init();
         Vars.ui.hudGroup.addChild(uiToggleButtons);
     }
 
