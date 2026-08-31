@@ -21,6 +21,8 @@ public class Buttons extends Table {
         featureButtons = new Table();
 
         top().right().setFillParent(true);
+        
+        featureButtons.visible = false;
 
         add(featureButtons).row();
 

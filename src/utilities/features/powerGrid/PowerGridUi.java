@@ -5,7 +5,7 @@ import arc.scene.ui.layout.Table;
 public class PowerGridUi extends Table{
 
     public PowerGridUi(){
-
+        createGraph();
     }
 
     public void createGraph(){
