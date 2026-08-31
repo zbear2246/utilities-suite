@@ -17,14 +17,14 @@ import arc.struct.Seq;
 import arc.util.Log;
 
 public class PowerGrid implements Feature {
-    private Set<PowerGraph> powerGraphs;
-    private Map<PowerGraph, GridInfo> gridInfo;
-    private Seq<GridInfo> displayOrder;
+    private Set<PowerGraph> powerGraphs = new HashSet<>();
+    private Map<PowerGraph, GridInfo> gridInfo = new HashMap<>();
+    private Seq<GridInfo> displayOrder = new Seq<>();
 
     public void init() {
-        powerGraphs = new HashSet<PowerGraph>();
-        gridInfo = new HashMap<PowerGraph, GridInfo>();
-        displayOrder = new Seq<GridInfo>();
+        powerGraphs.clear();
+        gridInfo.clear();
+        displayOrder.clear();
     }
 
     public Map<PowerGraph, GridInfo> getGridInfo() {
@@ -39,14 +39,10 @@ public class PowerGrid implements Feature {
         powerGraphs.clear();
         Team myTeam = Vars.player.team();
 
-        for (Building building : Groups.build) {
-            if (building.team != myTeam)
-                continue;
-            if (building.power == null)
-                continue;
+        Groups.build.each(
+                b -> b.team == myTeam && b.power != null && b.power.graph != null,
+                b -> powerGraphs.add(b.power.graph));
 
-            powerGraphs.add(building.power.graph);
-        }
         Log.info("found " + powerGraphs.size());
     }
 
@@ -72,11 +68,11 @@ public class PowerGrid implements Feature {
         findPowerGrids();
 
         Seq<PowerGraph> removedGraphs = new Seq<>();
-        for(PowerGraph graph : gridInfo.keySet()){
-            if(powerGraphs.contains(graph))continue;
+        for (PowerGraph graph : gridInfo.keySet()) {
+            if (powerGraphs.contains(graph))
+                continue;
             removedGraphs.add(graph);
         }
-
 
         for (PowerGraph graph : removedGraphs) {
             displayOrder.remove(gridInfo.get(graph));
