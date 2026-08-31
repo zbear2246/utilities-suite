@@ -1,46 +1,67 @@
 package utilities.features.powerGrid;
 
 public class GridInfo {
-    private float production;
-    private float consumption;
-    private float netProduction;
-    private float storedPower;
-    private float capacity;
+    private int production;
+    private int consumption;
+    private int netProduction;
+    private int storedBatteryPower;
+    private int totalBatteryCapacity;
 
-    public GridInfo(float production, float consumption, float storedPower, float capacity, float netProduction) {
+    public GridInfo(int production, int consumption, int netProduction, int storedBatteryPower,
+            int totalBatteryCapacity) {
         this.production = production;
         this.consumption = consumption;
-        this.storedPower = storedPower;
-        this.capacity = capacity;
         this.netProduction = netProduction;
+        this.storedBatteryPower = storedBatteryPower;
+        this.totalBatteryCapacity = totalBatteryCapacity;
+
     }
 
-    public float getProduction() {
+    public int getProduction() {
         return production;
     }
 
-    public float getConsumption() {
+    public int getConsumption() {
         return consumption;
     }
 
-    public float getStoredPower() {
-        return storedPower;
-    }
-
-    public float getCapacity() {
-        return capacity;
-    }
-
-    public float getNetProduction() {
+    public int getNetProduction() {
         return netProduction;
     }
 
-    public void update(float production, float consumption, float storedPower, float capacity, float netProduction) {
-        this.production = production;
-        this.consumption = consumption;
-        this.storedPower = storedPower;
-        this.capacity = capacity;
-        this.netProduction = netProduction;
+    public int getStoredBatteryPower() {
+        return storedBatteryPower;
+    }
+
+    public int getTotalBatteryCapacity() {
+        return totalBatteryCapacity;
+    }
+
+    public boolean update(int production, int consumption, int netProduction, int storedBatteryPower,
+            int totalBatteryCapacity) {
+        boolean changed = false;
+        if (this.production != production) {
+            this.production = production;
+            changed = true;
+        }
+        if (this.consumption != consumption) {
+            this.consumption = consumption;
+            changed = true;
+        }
+        if (this.netProduction != netProduction) {
+            this.netProduction = netProduction;
+            changed = true;
+        }
+        if (this.storedBatteryPower != storedBatteryPower) {
+            this.storedBatteryPower = storedBatteryPower;
+            changed = true;
+        }
+        if (this.totalBatteryCapacity != totalBatteryCapacity) {
+            this.totalBatteryCapacity = totalBatteryCapacity;
+            changed = true;
+        }
+
+        return changed;
     }
 
     @Override
@@ -51,8 +72,8 @@ public class GridInfo {
                 "\"Production\": " + getProduction() + ",\n" +
                 "\"Consumption\": " + getConsumption() + ",\n" +
                 "\"Net Production\": " + getNetProduction() + ",\n" +
-                "\"Power Stored\": " + getStoredPower() + ",\n" +
-                "\"Capacity\": " + getCapacity() +
+                "\"Power Stored\": " + getStoredBatteryPower() + ",\n" +
+                "\"totalBatteryCapacity\": " + getTotalBatteryCapacity() +
                 "\n}\n";
 
         return result;

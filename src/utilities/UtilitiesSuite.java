@@ -39,7 +39,7 @@ public class UtilitiesSuite extends Mod {
 
     private void initialize() {
         powerGrid = new PowerGrid();
-        powerGridUi = new PowerGridUi();
+        powerGridUi = new PowerGridUi(powerGrid);
 
         // autoDrill = new AutoDrill();
         autoDrillUi = new AutoDrillUi();
