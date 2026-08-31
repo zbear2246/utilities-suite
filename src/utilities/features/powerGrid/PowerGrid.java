@@ -71,9 +71,12 @@ public class PowerGrid implements Feature {
     public void update() {
         findPowerGrids();
 
-        var removedGraphs = gridInfo.keySet().stream()
-                .filter(graph -> !powerGraphs.contains(graph))
-                .toList();
+        Seq<PowerGraph> removedGraphs = new Seq<>();
+        for(PowerGraph graph : gridInfo.keySet()){
+            if(powerGraphs.contains(graph))continue;
+            removedGraphs.add(graph);
+        }
+
 
         for (PowerGraph graph : removedGraphs) {
             displayOrder.remove(gridInfo.get(graph));
