@@ -33,9 +33,7 @@ public class PowerGridUi extends Table {
         top();
         setFillParent(true);
         visible = false;
-        powerGridGraph.top();
-        powerGridGraph.setFillParent(true);
-        
+        powerGridGraph.top();        
     }
 
     private void createPowerGraph(){
