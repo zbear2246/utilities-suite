@@ -15,6 +15,9 @@ uvx gitingest ../utilities-suite/ -e ".github/*" \
     -e "build/*" \
     -e "gradle/*" \
     -e "gradlew" \
+    -e "gradlew.bat" \
+    -e "build.gradle" \
+    -e ".gitignore" \
     || exit 1
 
 echo -e "${BLUE}=== Committing changes ===${RESET}"
