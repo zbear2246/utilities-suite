@@ -5,7 +5,16 @@ GREEN='\e[1;32m'
 RESET='\e[0m'
 
 echo -e "${BLUE}=== Building project ===${RESET}"
-./gradlew jar -q || exit 1
+./gradlew jar || exit 1
+
+echo -e "${BLUE}=== Creating Gitingest File ===${RESET}"
+uvx gitingest ../utilities-suite/ -e ".github/*" \
+    -e ".gradle/*" \
+    -e ".vscode/*" \
+    -e "bin/*" \
+    -e "build/*" \
+    -e "gradle/*" \
+    || exit 1
 
 echo -e "${BLUE}=== Committing changes ===${RESET}"
 git add .
@@ -19,6 +28,6 @@ else
 fi
 
 echo -e "${BLUE}=== Pushing ===${RESET}"
-git push
+git push || exit 1
 
 echo -e "${GREEN}Done!${RESET}"
