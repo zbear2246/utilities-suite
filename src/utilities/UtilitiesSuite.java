@@ -52,6 +52,7 @@ public class UtilitiesSuite extends Mod {
 
     private void registerClientLoadedListener() {
         Events.on(EventType.ClientLoadEvent.class, event -> {
+            powerGridUi.init();
             uiToggleButtons.init();
             uiToggleButtons.visible = true;
         });
