@@ -24,8 +24,8 @@ public class PowerGridUi extends Table {
         setPosition();
         createPowerGraph();
 
-        add("Power Grid Graph");
-        add(powerGridGraph);
+        add("Power Grid Graph").row();
+        add(powerGridGraph).row();
 
     }
 
@@ -33,7 +33,8 @@ public class PowerGridUi extends Table {
         top();
         setFillParent(true);
         visible = false;
-        powerGridGraph.top();        
+        powerGridGraph.top();
+        powerGridGraph.visible = false;
     }
 
     private void createPowerGraph(){
@@ -62,5 +63,6 @@ public class PowerGridUi extends Table {
 
     public void toggle() {
         visible = !visible;
+        powerGridGraph.visible = !powerGridGraph.visible;
     }
 }
