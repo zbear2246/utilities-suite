@@ -1,7 +1,6 @@
 package utilities.features.ui;
 
 import arc.scene.ui.layout.Table;
-import mindustry.Vars;
 import utilities.features.autoDrill.AutoDrillUi;
 import utilities.features.powerGrid.PowerGridUi;
 import utilities.features.smartUpgrade.SmartUpgradeUi;
@@ -30,13 +29,22 @@ public class Buttons extends Table {
         smartUpgradeButton();
 
         masterToggleButton();
-
-        Vars.ui.hudGroup.addChild(powerGridUi);
-        //Vars.ui.hudGroup.addChild(autoDrillUi);
-        //Vars.ui.hudGroup.addChild(smartUpgradeUi);
-
     }
 
+    public PowerGridUi getpowerGridUi() {
+        return powerGridUi;
+    }
+
+    // public AutoDrillUi getAutoDrillUi() {
+    //     return autoDrillUi;
+    // }
+
+    // public SmartUpgradeUi getSmartUpgradeUi(){
+    //     return smartUpgradeUi;
+    // }
+
+
+    
     public void powerGridButton() {
         if (powerGridUi == null)
             return;

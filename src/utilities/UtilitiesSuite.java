@@ -65,6 +65,9 @@ public class UtilitiesSuite extends Mod {
             Vars.ui.hudGroup.addChild(uiToggleButtons);
             firstTick = true;
             worldLoaded = true;
+            Vars.ui.hudGroup.addChild(uiToggleButtons.getpowerGridUi());
+            // Vars.ui.hudGroup.addChild(uiTogglebuttons.getAutoDrillUi);
+            // Vars.ui.hudGroup.addChild(uiTogglebuttons.getSmartUpgradeUi);
         });
     }
 
@@ -74,6 +77,9 @@ public class UtilitiesSuite extends Mod {
                 return;
             worldLoaded = false;
             Vars.ui.hudGroup.removeChild(uiToggleButtons);
+            Vars.ui.hudGroup.removeChild(uiToggleButtons.getpowerGridUi());
+            // Vars.ui.hudGroup.removeChild(uiTogglebuttons.getAutoDrillUi);
+            // Vars.ui.hudGroup.removeChild(uiTogglebuttons.getSmartUpgradeUi);
         });
     }
 

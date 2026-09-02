@@ -17,11 +17,13 @@ import arc.util.Log;
 
 public class PowerGrid implements Feature {
     private Set<PowerGraph> powerGraphs = new HashSet<>();
+    private Set<Integer> usedIDs = new HashSet<>();
     private Map<PowerGraph, GridInfo> gridInfo = new HashMap<>();
     private Seq<GridInfo> displayOrder = new Seq<>();
 
     public void init() {
         powerGraphs.clear();
+        usedIDs.clear();
         gridInfo.clear();
         displayOrder.clear();
     }
@@ -46,23 +48,14 @@ public class PowerGrid implements Feature {
     }
 
     public void logPowerGridInfo() {
-        int displayId = 1;
-        boolean available = false;
-
-        while (!available){
-            available = true;
-
-            for (GridInfo grid: gridInfo.values()){
-                if (grid.getId() == displayId){
-                    available = false;
-                    displayId++;
-                    break;
-                }
-            }
-        }
 
         for (PowerGraph graph : powerGraphs) {
-            if(gridInfo.containsKey(graph)) continue;
+            if (gridInfo.containsKey(graph))
+                continue;
+            int displayId = 1;
+
+            while (usedIDs.contains(displayId))
+                displayId++;
 
             GridData gridData = getGridData(graph);
 
@@ -78,11 +71,10 @@ public class PowerGrid implements Feature {
 
             gridInfo.put(graph, grid);
             displayOrder.add(grid);
-            displayId++;
+            usedIDs.add(displayId);
         }
     }
 
-    
     public void update() {
         findPowerGrids();
         logPowerGridInfo();
@@ -96,6 +88,7 @@ public class PowerGrid implements Feature {
         }
 
         for (PowerGraph graph : removedGraphs) {
+            usedIDs.remove(gridInfo.get(graph).getId());
             displayOrder.remove(gridInfo.get(graph));
             gridInfo.remove(graph);
         }
