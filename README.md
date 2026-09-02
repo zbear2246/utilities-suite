@@ -3,7 +3,7 @@
 
 ## features
 
-- Power Graphing, detects and displays your 2 most recent power grids, will show you production, consumption, net production, stored battery power, and total battery power for that grid
+- Power Graphing, detects and displays your 2 most recent power grids, will show you production, consumption, net production, stored battery power, and total battery storage for that grid
 
 - Auto Upgrades, work in progress, still deciding on functionality. But, will mostly - detect the block you tap, checks what it's available "upgrades" are, lets you select the desired upgrade based on unlocked in tech tree, and upgrades the entire line(s) for you
 
