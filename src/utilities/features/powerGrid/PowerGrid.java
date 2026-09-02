@@ -46,13 +46,28 @@ public class PowerGrid implements Feature {
     }
 
     public void logPowerGridInfo() {
-        for (PowerGraph graph : powerGraphs) {
+        int displayId = 1;
+        boolean available = false;
 
+        while (!available){
+            available = true;
+
+            for (GridInfo grid: gridInfo.values()){
+                if (grid.getId() == displayId){
+                    available = false;
+                    displayId++;
+                    break;
+                }
+            }
+        }
+
+        for (PowerGraph graph : powerGraphs) {
             if(gridInfo.containsKey(graph)) continue;
 
             GridData gridData = getGridData(graph);
 
             GridInfo grid = new GridInfo(
+                    displayId,
                     gridData.production,
                     gridData.consumption,
                     gridData.netProduction,
@@ -63,6 +78,7 @@ public class PowerGrid implements Feature {
 
             gridInfo.put(graph, grid);
             displayOrder.add(grid);
+            displayId++;
         }
     }
 

@@ -1,20 +1,26 @@
 package utilities.features.powerGrid;
 
 public class GridInfo {
+    private int id;
     private int production;
     private int consumption;
     private int netProduction;
     private int storedBatteryPower;
     private int totalBatteryCapacity;
 
-    public GridInfo(int production, int consumption, int netProduction, int storedBatteryPower,
+    public GridInfo(int id, int production, int consumption, int netProduction, int storedBatteryPower,
             int totalBatteryCapacity) {
+        this.id = id;
         this.production = production;
         this.consumption = consumption;
         this.netProduction = netProduction;
         this.storedBatteryPower = storedBatteryPower;
         this.totalBatteryCapacity = totalBatteryCapacity;
 
+    }
+
+    public int getId(){
+        return id;
     }
 
     public int getProduction() {
@@ -69,6 +75,7 @@ public class GridInfo {
         String result = "";
 
         result = "\n{\n" +
+                "\"ID\": " + getId() + ",\n" +
                 "\"Production\": " + getProduction() + ",\n" +
                 "\"Consumption\": " + getConsumption() + ",\n" +
                 "\"Net Production\": " + getNetProduction() + ",\n" +

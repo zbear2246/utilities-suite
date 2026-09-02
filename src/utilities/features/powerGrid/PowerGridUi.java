@@ -45,7 +45,7 @@ public class PowerGridUi extends Table {
             gridTable.top();
             gridTable.background(Tex.pane);
 
-            gridTable.add("Graph " + i).row();;
+            gridTable.add("Graph " + gridInfo.getId()).row();;
             gridTable.add("Production: " + gridInfo.getProduction()).row();
             gridTable.add("Consumption: " + gridInfo.getConsumption()).row();
             gridTable.add("Net Production: " + gridInfo.getNetProduction()).row();
