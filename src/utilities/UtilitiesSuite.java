@@ -7,7 +7,7 @@ import mindustry.core.GameState;
 import mindustry.game.EventType;
 import mindustry.game.EventType.Trigger;
 import mindustry.mod.Mod;
- 
+
 import utilities.features.autoDrill.AutoDrillUi;
 import utilities.features.powerGrid.PowerGrid;
 import utilities.features.powerGrid.PowerGridUi;
@@ -28,6 +28,7 @@ public class UtilitiesSuite extends Mod {
 
     private float elapsedTime;
     private boolean worldLoaded;
+    private boolean firstTick;
 
     public UtilitiesSuite() {
         initialize();
@@ -62,6 +63,7 @@ public class UtilitiesSuite extends Mod {
             powerGrid.init();
             powerGrid.findPowerGrids();
             Vars.ui.hudGroup.addChild(uiToggleButtons);
+            firstTick = true;
             worldLoaded = true;
         });
     }
@@ -82,17 +84,19 @@ public class UtilitiesSuite extends Mod {
 
             elapsedTime += Time.delta / 60;
 
+            if (firstTick) {
+                powerGrid.findPowerGrids();
+                powerGrid.logPowerGridInfo();
+                powerGridUi.update();
+                firstTick = false;
+            }
+
             if (!(elapsedTime >= 2.0f))
                 return;
 
-            if (powerGrid.getGridInfo().isEmpty()) {
-                powerGrid.findPowerGrids();
-                powerGrid.logPowerGridInfo();
-                elapsedTime = 0f;
-            } else {
-                powerGrid.update();
-                elapsedTime = 0f;
-            }
+            powerGrid.update();
+            powerGridUi.update();
+            elapsedTime = 0f;
 
         });
     }

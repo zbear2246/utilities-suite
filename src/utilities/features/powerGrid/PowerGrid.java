@@ -47,6 +47,9 @@ public class PowerGrid implements Feature {
 
     public void logPowerGridInfo() {
         for (PowerGraph graph : powerGraphs) {
+
+            if(gridInfo.containsKey(graph)) continue;
+
             GridData gridData = getGridData(graph);
 
             GridInfo grid = new GridInfo(
@@ -63,10 +66,13 @@ public class PowerGrid implements Feature {
         }
     }
 
+    
     public void update() {
         findPowerGrids();
+        logPowerGridInfo();
 
         Seq<PowerGraph> removedGraphs = new Seq<>();
+
         for (PowerGraph graph : gridInfo.keySet()) {
             if (powerGraphs.contains(graph))
                 continue;
