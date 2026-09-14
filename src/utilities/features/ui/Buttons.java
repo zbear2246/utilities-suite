@@ -1,75 +1,70 @@
 package utilities.features.ui;
 
 import arc.scene.ui.layout.Table;
+
+import mindustry.gen.Icon;
+
 import utilities.features.autoDrill.AutoDrillUi;
 import utilities.features.powerGrid.PowerGridUi;
 import utilities.features.smartUpgrade.SmartUpgradeUi;
+import utilities.features.throughputCalculator.ThroughputCalculatorUi;
 
 public class Buttons extends Table {
     private PowerGridUi powerGridUi;
     private AutoDrillUi autoDrillUi;
     private SmartUpgradeUi smartUpgradeUi;
+    private ThroughputCalculatorUi throughputCalculatorUi;
+
     private Table featureButtons;
 
-    public Buttons(PowerGridUi powerGridUi, AutoDrillUi autoDrillUi, SmartUpgradeUi smartUpgradeUi) {
+    public Buttons(PowerGridUi powerGridUi, AutoDrillUi autoDrillUi, SmartUpgradeUi smartUpgradeUi,
+            ThroughputCalculatorUi throughputCalculatorUi) {
         this.powerGridUi = powerGridUi;
         this.autoDrillUi = autoDrillUi;
         this.smartUpgradeUi = smartUpgradeUi;
+        this.throughputCalculatorUi = throughputCalculatorUi;
     }
 
     public void init() {
         featureButtons = new Table();
 
-        top().right().setFillParent(true);
         featureButtons.visible = false;
         add(featureButtons).row();
 
         powerGridButton();
         autoDrillButton();
         smartUpgradeButton();
+        throughputCalculatorButton();
 
         masterToggleButton();
     }
 
-    public PowerGridUi getpowerGridUi() {
-        return powerGridUi;
-    }
-
-    // public AutoDrillUi getAutoDrillUi() {
-    //     return autoDrillUi;
-    // }
-
-    // public SmartUpgradeUi getSmartUpgradeUi(){
-    //     return smartUpgradeUi;
-    // }
-
-
-    
     public void powerGridButton() {
         if (powerGridUi == null)
             return;
 
-        powerGridUi.init();
-
-        featureButtons.button("Power Grid", () -> powerGridUi.toggle()).size(50f, 50f);
+        featureButtons.button(Icon.power, () -> powerGridUi.toggle());
     }
 
     public void autoDrillButton() {
         if (autoDrillUi == null)
             return;
 
-        // autoDrillui.init();
-
-        featureButtons.button("Auto Drill", () -> autoDrillUi.toggle()).size(50f, 50f);
+        featureButtons.button(Icon.production, () -> autoDrillUi.toggle());
     }
 
     public void smartUpgradeButton() {
         if (smartUpgradeUi == null)
             return;
 
-        // smartUpgradeButton.init();
+        featureButtons.button(Icon.up, () -> smartUpgradeUi.toggle());
+    }
 
-        featureButtons.button("Smart Upgrade", () -> smartUpgradeUi.toggle()).size(50f, 50f);
+    public void throughputCalculatorButton() {
+        if (throughputCalculatorUi == null)
+            return;
+
+        featureButtons.button(Icon.distribution, () -> throughputCalculatorUi.toggle());
     }
 
     public void toggleVisibility() {
@@ -77,6 +72,6 @@ public class Buttons extends Table {
     }
 
     public void masterToggleButton() {
-        button("Utilities Suite", this::toggleVisibility).size(50f, 50f);
+        button("Utilities Suite", this::toggleVisibility);
     }
 }

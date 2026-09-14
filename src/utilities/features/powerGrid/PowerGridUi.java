@@ -21,20 +21,12 @@ public class PowerGridUi extends Table {
     }
 
     public void createGraph() {
-        setPosition();
+        powerGridGraph.top();
+        powerGridGraph.visible = false;
         createPowerGraph();
 
         add("Power Grid Graph").row();
         add(powerGridGraph).row();
-
-    }
-
-    private void setPosition(){
-        top();
-        setFillParent(true);
-        visible = false;
-        powerGridGraph.top();
-        powerGridGraph.visible = false;
     }
 
     private void createPowerGraph(){
@@ -51,7 +43,7 @@ public class PowerGridUi extends Table {
             gridTable.add("Net Production: " + gridInfo.getNetProduction()).row();
             gridTable.add("Stored Battery Power: " + gridInfo.getStoredBatteryPower()).row();
             gridTable.add("Total Battery: " + gridInfo.getTotalBatteryCapacity()).row();
-
+            
             powerGridGraph.add(gridTable).pad(10f);
         }
     }

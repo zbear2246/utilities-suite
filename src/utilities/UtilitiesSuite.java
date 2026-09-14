@@ -12,9 +12,13 @@ import utilities.features.autoDrill.AutoDrillUi;
 import utilities.features.powerGrid.PowerGrid;
 import utilities.features.powerGrid.PowerGridUi;
 import utilities.features.smartUpgrade.SmartUpgradeUi;
-import utilities.features.ui.Buttons;
+import utilities.features.ui.DesktopUi;
+import utilities.features.ui.MobileUi;
 
 public class UtilitiesSuite extends Mod {
+    private MobileUi mobileUi;
+    private DesktopUi desktopUi;
+
     private PowerGrid powerGrid;
     private PowerGridUi powerGridUi;
 
@@ -23,8 +27,6 @@ public class UtilitiesSuite extends Mod {
 
     // private SmartUpgrade smartUpgrade;
     private SmartUpgradeUi smartUpgradeui;
-
-    private Buttons uiToggleButtons;
 
     private float elapsedTime;
     private boolean worldLoaded;
@@ -39,6 +41,7 @@ public class UtilitiesSuite extends Mod {
     }
 
     private void initialize() {
+
         powerGrid = new PowerGrid();
         powerGridUi = new PowerGridUi(powerGrid);
 
@@ -48,13 +51,17 @@ public class UtilitiesSuite extends Mod {
         // smartUpgrade = new SmartUpgrade();
         smartUpgradeui = new SmartUpgradeUi();
 
-        uiToggleButtons = new Buttons(powerGridUi, autoDrillUi, smartUpgradeui);
+        if (Vars.mobile) {
+            mobileUi = new MobileUi(powerGrid);
+        }
     }
 
     private void registerClientLoadedListener() {
         Events.on(EventType.ClientLoadEvent.class, event -> {
-            uiToggleButtons.init();
-            uiToggleButtons.visible = true;
+            if (Vars.mobile) {
+                mobileUi.init();
+                mobileUi.visible = true;
+            }
         });
     }
 
@@ -62,12 +69,13 @@ public class UtilitiesSuite extends Mod {
         Events.on(EventType.WorldLoadEvent.class, event -> {
             powerGrid.init();
             powerGrid.findPowerGrids();
-            Vars.ui.hudGroup.addChild(uiToggleButtons);
             firstTick = true;
             worldLoaded = true;
-            Vars.ui.hudGroup.addChild(uiToggleButtons.getpowerGridUi());
-            // Vars.ui.hudGroup.addChild(uiTogglebuttons.getAutoDrillUi);
-            // Vars.ui.hudGroup.addChild(uiTogglebuttons.getSmartUpgradeUi);
+
+            if (Vars.mobile) {
+                Vars.ui.hudGroup.addChild(mobileUi);
+            }
+
         });
     }
 
@@ -76,10 +84,10 @@ public class UtilitiesSuite extends Mod {
             if (event.to != GameState.State.menu)
                 return;
             worldLoaded = false;
-            Vars.ui.hudGroup.removeChild(uiToggleButtons);
-            Vars.ui.hudGroup.removeChild(uiToggleButtons.getpowerGridUi());
-            // Vars.ui.hudGroup.removeChild(uiTogglebuttons.getAutoDrillUi);
-            // Vars.ui.hudGroup.removeChild(uiTogglebuttons.getSmartUpgradeUi);
+
+            if (Vars.mobile) {
+                Vars.ui.hudGroup.removeChild(mobileUi);
+            }
         });
     }
 
