@@ -1,6 +1,7 @@
 package utilities.features.ui;
 
 import arc.scene.ui.layout.Table;
+import arc.util.Log;
 
 import mindustry.gen.Icon;
 
@@ -37,6 +38,7 @@ public class Buttons extends Table {
         throughputCalculatorButton();
 
         masterToggleButton();
+        Log.info("Utilities Suite feature buttons initialized.");
     }
 
     public void powerGridButton() {
@@ -69,6 +71,7 @@ public class Buttons extends Table {
 
     public void toggleVisibility() {
         featureButtons.visible = !featureButtons.visible;
+        Log.info("Utilities Suite feature buttons " + (featureButtons.visible ? "shown" : "hidden") + ".");
     }
 
     public void masterToggleButton() {

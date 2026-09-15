@@ -20,12 +20,15 @@ public class PowerGrid implements Feature {
     private Set<Integer> usedIDs = new HashSet<>();
     private Map<PowerGraph, GridInfo> gridInfo = new HashMap<>();
     private Seq<GridInfo> displayOrder = new Seq<>();
+    private int lastLoggedGraphCount = -1;
 
     public void init() {
         powerGraphs.clear();
         usedIDs.clear();
         gridInfo.clear();
         displayOrder.clear();
+        lastLoggedGraphCount = -1;
+        Log.info("Power grid tracker reset.");
     }
 
     public Map<PowerGraph, GridInfo> getGridInfo() {
@@ -44,7 +47,10 @@ public class PowerGrid implements Feature {
                 b -> b.team == myTeam && b.power != null && b.power.graph != null,
                 b -> powerGraphs.add(b.power.graph));
 
-        Log.info("found " + powerGraphs.size());
+        if (powerGraphs.size() != lastLoggedGraphCount) {
+            Log.info("Power grid topology changed; tracking " + powerGraphs.size() + " grid(s).");
+            lastLoggedGraphCount = powerGraphs.size();
+        }
     }
 
     public void logPowerGridInfo() {
@@ -72,6 +78,7 @@ public class PowerGrid implements Feature {
             gridInfo.put(graph, grid);
             displayOrder.add(grid);
             usedIDs.add(displayId);
+            Log.info("Power grid " + displayId + " discovered: " + grid);
         }
     }
 
@@ -89,6 +96,7 @@ public class PowerGrid implements Feature {
 
         for (PowerGraph graph : removedGraphs) {
             usedIDs.remove(gridInfo.get(graph).getId());
+            Log.info("Power grid " + gridInfo.get(graph).getId() + " removed from tracking.");
             displayOrder.remove(gridInfo.get(graph));
             gridInfo.remove(graph);
         }
@@ -105,10 +113,10 @@ public class PowerGrid implements Feature {
                     gridData.netProduction,
                     gridData.storedBatteryPower,
                     gridData.totalBatteryCapacity);
-            Log.info(grid.toString());
-
-            if (updated)
+            if (updated) {
+                Log.info("Power grid " + grid.getId() + " updated: " + grid);
                 updateDisplayOrder(grid);
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package utilities.features.ui;
 
 import arc.scene.ui.layout.Stack;
+import arc.util.Log;
 
 import utilities.features.autoDrill.AutoDrillUi;
 import utilities.features.powerGrid.PowerGrid;
@@ -38,6 +39,7 @@ public class MobileUi extends Stack {
         add(smartUpgradeUi);
         add(throughputCalculatorUi);
         add(buttons);
+        Log.info("Mobile UI initialized.");
     }
 
     public void setUpPowerGridUi() {
@@ -56,5 +58,9 @@ public class MobileUi extends Stack {
         // autoDrillUi.init();
         // smartUpgradeUi.init();
         // throughputCalculatorUi.init();
+    }
+
+    public void update(){
+        powerGridUi.update();
     }
 }

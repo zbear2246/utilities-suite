@@ -20,11 +20,11 @@ info() {
 }
 
 success() {
-    printf "${GREEN}$1${RESET}"
+    printf "\n${GREEN}$1${RESET}"
 }
 
 warning() {
-    printf "${YELLOW}$1${RESET}"
+    printf "\n${YELLOW}$1${RESET}"
 }
 
 # Make sure we're in the project directory
@@ -46,41 +46,4 @@ else
     ./gradlew jar
 fi
 
-# ----------------------------------------
-# Git
-# ----------------------------------------
-
-info "=== Checking Git changes ==="
-
-git add .
-
-if git diff --cached --quiet; then
-    warning "No changes to commit."
-    exit 0
-fi
-
-printf "Commit Summary: "
-read summary
-
-printf "Commit Message: "
-read message
-
-if [ -z "$summary" ]; then
-    error "Commit summary cannot be empty."
-fi
-
-if [ -z "$message" ]; then
-    git commit -m "$summary"
-else
-    git commit -m "$summary" -m "$message"
-fi
-
-# ----------------------------------------
-# Push
-# ----------------------------------------
-
-info "=== Pushing ==="
-
-git push
-
-success "Done!"
+success "Building Complete"

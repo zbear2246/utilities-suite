@@ -2,6 +2,7 @@ package utilities.features.powerGrid;
 
 import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
+import arc.util.Log;
 import mindustry.gen.Tex;
 
 public class PowerGridUi extends Table {
@@ -18,6 +19,7 @@ public class PowerGridUi extends Table {
         powerGridGraph = new Table();
         displayOrder = powerGrid.getDisplayOrder();
         createGraph();
+        Log.info("Power grid UI initialized.");
     }
 
     public void createGraph() {
@@ -56,5 +58,6 @@ public class PowerGridUi extends Table {
     public void toggle() {
         visible = !visible;
         powerGridGraph.visible = !powerGridGraph.visible;
+        Log.info("Power grid UI " + (visible ? "shown" : "hidden") + ".");
     }
 }
