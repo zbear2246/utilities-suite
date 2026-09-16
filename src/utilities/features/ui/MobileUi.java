@@ -17,12 +17,17 @@ public class MobileUi extends Stack {
     private Buttons buttons;
 
     public MobileUi(PowerGrid powerGrid){
+        Log.info("Mobile UI constructing feature panels for powerGrid=" + (powerGrid != null) + ".");
         powerGridUi = new PowerGridUi(powerGrid);
         autoDrillUi = new AutoDrillUi();
         smartUpgradeUi = new SmartUpgradeUi();
         throughputCalculatorUi = new ThroughputCalculatorUi();
 
         buttons = new Buttons(powerGridUi, autoDrillUi, smartUpgradeUi, throughputCalculatorUi);
+        Log.info("Mobile UI panels created: powerGridUi=" + (powerGridUi != null)
+                + ", autoDrillUi=" + (autoDrillUi != null)
+                + ", smartUpgradeUi=" + (smartUpgradeUi != null)
+                + ", throughputCalculatorUi=" + (throughputCalculatorUi != null));
     }
 
     public void init() {
@@ -39,22 +44,25 @@ public class MobileUi extends Stack {
         add(smartUpgradeUi);
         add(throughputCalculatorUi);
         add(buttons);
-        Log.info("Mobile UI initialized.");
+        Log.info("Mobile UI initialized with child panels=" + getChildren().size + ", buttonsVisible=" + buttons.visible + ".");
     }
 
     public void setUpPowerGridUi() {
         powerGridUi.top();
         powerGridUi.visible = false;
+        Log.info("Mobile UI power grid panel anchored to top and hidden by default.");
     }
 
     public void setUpButtons() {
         buttons.top().right();
         buttons.init();
         buttons.visible = true;
+        Log.info("Mobile UI buttons initialized and anchored to top-right.");
     }
 
     public void initializeFeaturesUi(){
         powerGridUi.init();
+        Log.info("Mobile UI feature initialization complete; powerGridUiInitialized=" + (powerGridUi != null) + ".");
         // autoDrillUi.init();
         // smartUpgradeUi.init();
         // throughputCalculatorUi.init();

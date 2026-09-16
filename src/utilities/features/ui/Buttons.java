@@ -38,35 +38,50 @@ public class Buttons extends Table {
         throughputCalculatorButton();
 
         masterToggleButton();
-        Log.info("Utilities Suite feature buttons initialized.");
+        Log.info("Utilities Suite feature buttons initialized: powerGrid=" + (powerGridUi != null)
+                + ", autoDrill=" + (autoDrillUi != null)
+                + ", smartUpgrade=" + (smartUpgradeUi != null)
+                + ", throughputCalculator=" + (throughputCalculatorUi != null));
     }
 
     public void powerGridButton() {
         if (powerGridUi == null)
             return;
 
-        featureButtons.button(Icon.power, () -> powerGridUi.toggle());
+        featureButtons.button(Icon.power, () -> {
+            Log.info("Power grid button pressed; toggling power grid panel.");
+            powerGridUi.toggle();
+        });
     }
 
     public void autoDrillButton() {
         if (autoDrillUi == null)
             return;
 
-        featureButtons.button(Icon.production, () -> autoDrillUi.toggle());
+        featureButtons.button(Icon.production, () -> {
+            Log.info("Auto drill button pressed; toggling auto drill panel.");
+            autoDrillUi.toggle();
+        });
     }
 
     public void smartUpgradeButton() {
         if (smartUpgradeUi == null)
             return;
 
-        featureButtons.button(Icon.up, () -> smartUpgradeUi.toggle());
+        featureButtons.button(Icon.up, () -> {
+            Log.info("Smart upgrade button pressed; toggling smart upgrade panel.");
+            smartUpgradeUi.toggle();
+        });
     }
 
     public void throughputCalculatorButton() {
         if (throughputCalculatorUi == null)
             return;
 
-        featureButtons.button(Icon.distribution, () -> throughputCalculatorUi.toggle());
+        featureButtons.button(Icon.distribution, () -> {
+            Log.info("Throughput calculator button pressed; toggling throughput panel.");
+            throughputCalculatorUi.toggle();
+        });
     }
 
     public void toggleVisibility() {
@@ -75,6 +90,9 @@ public class Buttons extends Table {
     }
 
     public void masterToggleButton() {
-        button("Utilities Suite", this::toggleVisibility);
+        button("Utilities Suite", () -> {
+            Log.info("Utilities Suite master toggle pressed.");
+            toggleVisibility();
+        });
     }
 }

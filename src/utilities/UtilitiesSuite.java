@@ -9,10 +9,7 @@ import mindustry.game.EventType;
 import mindustry.game.EventType.Trigger;
 import mindustry.mod.Mod;
 
-import utilities.features.autoDrill.AutoDrillUi;
 import utilities.features.powerGrid.PowerGrid;
-import utilities.features.powerGrid.PowerGridUi;
-import utilities.features.smartUpgrade.SmartUpgradeUi;
 import utilities.features.ui.DesktopUi;
 import utilities.features.ui.MobileUi;
 
@@ -31,6 +28,8 @@ public class UtilitiesSuite extends Mod {
     private boolean firstTick;
 
     public UtilitiesSuite() {
+        Log.info("Utilities Suite constructor invoked; client mode=" + (Vars.mobile ? "mobile" : "desktop")
+                + ", playerPresent=" + (Vars.player != null));
         initialize();
         registerClientLoadedListener();
         registerWorldLoadedListener();
@@ -50,24 +49,32 @@ public class UtilitiesSuite extends Mod {
         } else {
             desktopUi = new DesktopUi(powerGrid);
         }
+
+        Log.info("Utilities Suite core objects initialized: powerGrid=" + (powerGrid != null)
+                + ", mobileUi=" + (mobileUi != null)
+                + ", desktopUi=" + (desktopUi != null));
     }
 
     private void registerClientLoadedListener() {
         Events.on(EventType.ClientLoadEvent.class, event -> {
-            Log.info("Utilities Suite client UI loading.");
+            Log.info("Utilities Suite client UI loading; mode=" + (Vars.mobile ? "mobile" : "desktop") + ", uiReady="
+                    + (Vars.mobile ? mobileUi != null : desktopUi != null));
             if (Vars.mobile) {
                 mobileUi.init();
                 mobileUi.visible = true;
+                Log.info("Utilities Suite mobile UI activated and made visible.");
             } else {
                 desktopUi.init();
                 desktopUi.visible = true;
+                Log.info("Utilities Suite desktop UI activated and made visible.");
             }
         });
     }
 
     private void registerWorldLoadedListener() {
         Events.on(EventType.WorldLoadEvent.class, event -> {
-            Log.info("Utilities Suite world loaded; initializing power grid tracking.");
+            Log.info(
+                    "Utilities Suite world loaded; initializing power grid tracking for world=" + Vars.state.map + ".");
             powerGrid.init();
             powerGrid.findPowerGrids();
             firstTick = true;
@@ -75,9 +82,12 @@ public class UtilitiesSuite extends Mod {
 
             if (Vars.mobile) {
                 Vars.ui.hudGroup.addChild(mobileUi);
+                Log.info("Utilities Suite mobile UI attached to HUD for world load.");
             } else {
-                desktopUi.setButtonLocation();
                 Vars.ui.hudGroup.addChild(desktopUi);
+                desktopUi.setPositions();
+
+                Log.info("Utilities Suite desktop UI attached to HUD and button placement calibrated.");
             }
 
         });
@@ -87,13 +97,15 @@ public class UtilitiesSuite extends Mod {
         Events.on(EventType.StateChangeEvent.class, event -> {
             if (event.to != GameState.State.menu)
                 return;
-            Log.info("Utilities Suite world unloaded; hiding feature UI.");
+            Log.info("Utilities Suite world unloaded; hiding feature UI before returning to menu state.");
             worldLoaded = false;
 
             if (Vars.mobile) {
                 Vars.ui.hudGroup.removeChild(mobileUi);
+                Log.info("Utilities Suite mobile UI detached from HUD.");
             } else {
                 Vars.ui.hudGroup.removeChild(desktopUi);
+                Log.info("Utilities Suite desktop UI detached from HUD.");
             }
         });
     }
@@ -121,8 +133,9 @@ public class UtilitiesSuite extends Mod {
         });
     }
 
-    private void update(){
-        if (!firstTick) powerGrid.update();
+    private void update() {
+        if (!firstTick)
+            powerGrid.update();
 
         if (Vars.mobile) {
             mobileUi.update();

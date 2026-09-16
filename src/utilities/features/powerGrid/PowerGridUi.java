@@ -19,7 +19,7 @@ public class PowerGridUi extends Table {
         powerGridGraph = new Table();
         displayOrder = powerGrid.getDisplayOrder();
         createGraph();
-        Log.info("Power grid UI initialized.");
+        Log.info("Power grid UI initialized; displayOrderSize=" + (displayOrder != null ? displayOrder.size : 0) + ", visible=" + visible + ".");
     }
 
     public void createGraph() {
@@ -29,6 +29,7 @@ public class PowerGridUi extends Table {
 
         add("Power Grid Graph").row();
         add(powerGridGraph).row();
+        Log.info("Power grid graph table rebuilt with " + (displayOrder != null ? displayOrder.size : 0) + " tracked grid(s).");
     }
 
     private void createPowerGraph(){
@@ -58,6 +59,6 @@ public class PowerGridUi extends Table {
     public void toggle() {
         visible = !visible;
         powerGridGraph.visible = !powerGridGraph.visible;
-        Log.info("Power grid UI " + (visible ? "shown" : "hidden") + ".");
+        Log.info("Power grid UI toggled: visible=" + visible + ", graphVisible=" + powerGridGraph.visible + ", trackedGridCount=" + (displayOrder != null ? displayOrder.size : 0) + ".");
     }
 }
