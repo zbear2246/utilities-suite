@@ -1,0 +1,49 @@
+#!/bin/sh
+
+set -e
+set -u
+set -o pipefail
+
+BLUE='\e[1;34m'
+GREEN='\e[1;32m'
+RED='\e[1;31m'
+YELLOW='\e[1;33m'
+RESET='\e[0m'
+
+error() {
+    printf "${RED}ERROR: $1${RESET}"
+    exit 1
+}
+
+info() {
+    printf "${BLUE}$1${RESET}"
+}
+
+success() {
+    printf "\n${GREEN}$1${RESET}"
+}
+
+warning() {
+    printf "\n${YELLOW}$1${RESET}"
+}
+
+# Make sure we're in the project directory
+if [ ! -f "./gradlew" ]; then
+    error "gradlew not found. Run this script from the project root."
+fi
+
+# ----------------------------------------
+# Build
+# ----------------------------------------
+
+info "=== Building project ==="
+
+if [ -n "${ANDROID_HOME:-}" ] && [ -d "$ANDROID_HOME" ]; then
+    success "Android SDK found — deploying"
+    ./gradlew deploy
+else
+    warning "Android SDK not found — building JAR"
+    ./gradlew jar
+fi
+
+success "Building Complete"

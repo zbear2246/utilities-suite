@@ -2,6 +2,7 @@ package utilities.features.powerGrid;
 
 import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
+import arc.util.Log;
 import mindustry.gen.Tex;
 
 public class PowerGridUi extends Table {
@@ -18,23 +19,17 @@ public class PowerGridUi extends Table {
         powerGridGraph = new Table();
         displayOrder = powerGrid.getDisplayOrder();
         createGraph();
+        Log.info("Power grid UI initialized; displayOrderSize=" + (displayOrder != null ? displayOrder.size : 0) + ", visible=" + visible + ".");
     }
 
     public void createGraph() {
-        setPosition();
+        powerGridGraph.top();
+        powerGridGraph.visible = false;
         createPowerGraph();
 
         add("Power Grid Graph").row();
         add(powerGridGraph).row();
-
-    }
-
-    private void setPosition(){
-        top();
-        setFillParent(true);
-        visible = false;
-        powerGridGraph.top();
-        powerGridGraph.visible = false;
+        Log.info("Power grid graph table rebuilt with " + (displayOrder != null ? displayOrder.size : 0) + " tracked grid(s).");
     }
 
     private void createPowerGraph(){
@@ -51,7 +46,7 @@ public class PowerGridUi extends Table {
             gridTable.add("Net Production: " + gridInfo.getNetProduction()).row();
             gridTable.add("Stored Battery Power: " + gridInfo.getStoredBatteryPower()).row();
             gridTable.add("Total Battery: " + gridInfo.getTotalBatteryCapacity()).row();
-
+            
             powerGridGraph.add(gridTable).pad(10f);
         }
     }
@@ -64,5 +59,6 @@ public class PowerGridUi extends Table {
     public void toggle() {
         visible = !visible;
         powerGridGraph.visible = !powerGridGraph.visible;
+        Log.info("Power grid UI toggled: visible=" + visible + ", graphVisible=" + powerGridGraph.visible + ", trackedGridCount=" + (displayOrder != null ? displayOrder.size : 0) + ".");
     }
 }
